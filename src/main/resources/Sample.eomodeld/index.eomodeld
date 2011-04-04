@@ -1,0 +1,6 @@
+{
+    EOModelVersion = "2.1"; 
+    adaptorName = JDBC; 
+    connectionDictionary = {}; 
+    entities = ({className = "br.com.doit.multitenant.model.User"; name = User; }); 
+}

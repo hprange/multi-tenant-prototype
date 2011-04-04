@@ -1,0 +1,1 @@
+ -destination src/main/java -extension java -java -model src/main/resources/Sample.eomodeld -packagedirs -subclassDestination src/main/java -verbose -loadModelGroup

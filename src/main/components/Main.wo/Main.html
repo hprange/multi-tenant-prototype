@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml" xml:lang = "en" lang = "en">
+  <head>
+    <meta http-equiv = "Content-Type" content = "text/html; charset=utf-8" />
+    <title>Multi-Tenant Architecture Prototype</title>
+  </head>
+  <body>
+    <div>
+      <h1>Create Tenants</h1>
+      <p>Create new Tenants by providing an unique identifier and the database connection URL (i.e. &quot;jdbc:derby:instance_x;create=true&quot;) for the new database. </p>
+      <wo:WOForm>
+        <p>
+          <label for = "tenantIdentifier">Identifier:</label>
+          <wo:WOTextField id = "tenantIdentifier" value = "$newTenantIdentifier" />
+        </p>
+        <p>
+          <label for = "databaseUrl">Database URL:</label>
+          <wo:WOTextField id = "databaseUrl" value = "$newTenantDatabaseUrl" />
+        </p>
+        <p> <wo:WOSubmitButton action = "$createNewTenant" value = "Create" /> </p>
+      </wo:WOForm>
+    </div>
+    <div>
+      <h1>Add Data into Tenant Database</h1>
+      <wo:WOForm>
+        <p>Create new users for the selected Tenant.</p>
+        <p>
+          <label for = "tenant">Tenant:</label>
+          <wo:WOPopUpButton id = "tenant" list = "$availableTenants" selection = "$selectedTenant" item = "$tenantItem" displayString = "$tenantItem.identifier" />
+        </p>
+        <p>
+          <label for = "login">User:</label>
+          <wo:WOTextField id = "login" value = "$newUserLogin" />
+          <wo:WOSubmitButton action = "$addUser" value = "Add" />
+        </p>
+      </wo:WOForm>
+    </div>
+    <div>
+      <h1>Load Data by Tenant</h1>
+      <p> Select the Tenant to fetch data. </p>
+      <wo:WOForm>
+        <p>
+          <label for = "tenant">Tenant:</label>
+          <wo:WOPopUpButton id = "tenant" list = "$availableTenants" selection = "$selectedTenant" item = "$tenantItem" displayString = "$tenantItem.identifier" />
+          <wo:WOSubmitButton action = "$showUsersForTenant" value = "Fetch Users" />
+        </p>
+        <p>
+          <wo:if condition = "$hasUsers">
+            <ul>
+              <wo:WORepetition list = "$users" item = "$currentUser">
+                <li><wo:WOString value = "$currentUser.login" /></li>
+              </wo:WORepetition>
+            </ul>
+          </wo:if>
+          <wo:else>
+            No data available for
+            <wo:WOString value = "$selectedTenant.identifier" />.
+          </wo:else>
+        </p>
+      </wo:WOForm>
+      <wo:if condition = "$false">
+        <h1>Available Data for Each Tenant</h1>
+        <wo:WORepetition list = "$availableTenants" item = "$currentTenant">
+          <h2><wo:WOString value = "$currentTenant.identifier" /></h2>
+          <p>
+            <ul>
+              <wo:WORepetition list = "$usersForCurrentTenant" item = "$currentUser">
+                <li><wo:WOString value = "$currentUser.login" /></li>
+              </wo:WORepetition>
+            </ul>
+          </p>
+        </wo:WORepetition>
+      </wo:if>
+    </div>
+  </body>
+</html>

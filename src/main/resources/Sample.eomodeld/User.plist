@@ -1,0 +1,18 @@
+{
+    attributes = (
+        {allowsNull = N; name = id; prototypeName = id; }, 
+        {
+            allowsNull = Y; 
+            columnName = login; 
+            name = login; 
+            prototypeName = varchar255; 
+        }
+    ); 
+    attributesUsedForLocking = (id); 
+    className = "br.com.doit.multitenant.model.User"; 
+    classProperties = (login); 
+    externalName = users; 
+    fetchSpecificationDictionary = {}; 
+    name = User; 
+    primaryKeyAttributes = (id); 
+}
